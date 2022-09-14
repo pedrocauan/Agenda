@@ -1,0 +1,11 @@
+.nav-content {
+  width: 100vw;
+}
+
+
+.logo {
+  font-family: var(--bs-body-font-family);
+  color: white;
+  
+}
+

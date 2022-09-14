@@ -1,0 +1,12 @@
+nodemon é uma dependencia do node que atualiza o servidor automaticamente
+
+npx nodemon server.js -> executa o nodemon na mao
+
+- Ir no package.json
+- Ir na parte de scripts
+- Criar um script que executa o nodemon automaticamente
+
+"scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon server.js"
+  },
