@@ -21,7 +21,7 @@ const path = require("path")
 // const helmet = require("helmet")
 //faz com que nenhum site externo possa postar coisas dentro da aplicação
 const CSRF = require("csurf")
-const { middlewareGlobal, outroMiddleware, checkCSRF, middlewareCSRF} = require("./src/middlewares/middleware.js")
+const { middlewareGlobal, checkCSRF, middlewareCSRF} = require("./src/middlewares/middleware.js")
 
 //Helmet
 // app.use(helmet())
@@ -60,7 +60,6 @@ app.use(CSRF()) /*evita o csrf*/
 app.use(middlewareGlobal)
 app.use(checkCSRF)
 app.use(middlewareCSRF) /*valida o token csrf*/
-app.use(outroMiddleware)
 
 // ROTAS
 app.use(routes)
