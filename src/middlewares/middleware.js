@@ -3,6 +3,7 @@ const { patch } = require("../../routes")
 exports.middlewareGlobal = (req, res, next) => {
     res.locals.errors = req.flash("errors")
     res.locals.success = req.flash("success")
+    res.locals.user = req.session.user //sessao do usuario logado
     next()
 }
 
@@ -21,6 +22,5 @@ exports.checkCSRF = (err, req, res, next) => {
 
 exports.middlewareCSRF = (req, res, next) => {
     res.locals.csrfToken = req.csrfToken()
-    console.log(res.locals.csrfToken)
     next()
 }

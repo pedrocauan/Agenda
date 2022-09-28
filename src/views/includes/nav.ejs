@@ -6,7 +6,18 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav ml-auto mb-2 mb-lg-0">
-        
+        <!-- mostra um botão de sair caso o user esteja logado-->
+        <% if(user) {  %>
+          <li class="nav-item">
+            <a class="nav-link" href="/login/logout">Sair</a>
+          </li>
+        <!-- mostra um botao de entrar caso ele nao esteja logado-->
+          <% } else { %>  
+            <li class="nav-item">
+              <a class="nav-link" href="/login/index">Entrar</a>
+            </li>
+        <% } %>
+
         <li class="nav-item">
           <a class="nav-link" href="#">Link</a>
         </li>

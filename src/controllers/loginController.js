@@ -1,7 +1,10 @@
 const Login = require("../models/LoginModel")
 
 exports.index = (req, res) => {
-    res.render("login")
+    if(req.session.user){
+        return res.render("login-logado")
+    }
+    return res.render("login")
 }
 
 exports.register = async  (req, res) => {
@@ -30,4 +33,47 @@ exports.register = async  (req, res) => {
     
 }
 
+
+exports.login = async (req, res) => {
+    try {
+        const login = new Login(req.body)
+        await login.login()
+        
+        //ve se os campos não tem erros
+        if(login.errors.length > 0){
+            req.flash("errors", login.errors)
+            req.session.save(function() {
+                return res.redirect("back")
+            })
+            return 
+        }
+        //Ve se o usuario existe na bd
+        if(!login.user){
+            req.flash("errors", login.errors)
+            req.session.save(function() {
+                return res.redirect("back")
+            })
+            return 
+        }
+
+        req.flash("success", "Logado com sucesso.")
+        req.session.user = login.user
+        req.session.save(function() {
+            return res.redirect("back")
+        })
+        
+    }
+    catch(e) {
+        console.log(e)
+        return res.render("404")
+    }
+    
+}
+
+//sai da sessao de login caso o user clique no botao de sair
+exports.logout = (req, res) => {
+    req.session.destroy()
+    res.redirect("/")
+
+}
 

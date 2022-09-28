@@ -17,35 +17,58 @@ class Login {
         this.user = null
     }
 
+
+    async login() {
+        this.valida()
+        if(this.errors.length > 0)
+            return
+        this.user = await loginModel.findOne({ email: this.body.email })
+        //ve se o  usuario existe na db
+        if(!this.user){
+            this.errors.push("Usuario ou senha inválidos!!")
+            return 
+        }
+        //ve se a senha é valida
+        if(!bcryptjs.compareSync(this.body.password, this.user.password)){
+            this.errors.push("Senha inválida !!")
+            this.user = null //reseta a variavel user para a proxima sessão
+            return
+        }
+
+
+    }
+
     async register() {
         this.valida()
         //caso exista algum valor no array errors, ele não envia o formulário
         if(this.errors.length > 0)
             return
         //checa se o usuario existe
-        await this.userExists()
+        const userExists =  await this.userExists()
+        console.log(userExists)
+        if(userExists)
+            return 
+        /*registra usuario*/
         
-        //registra usuario
-        try{
-            //gera hash da senha
-            const salt = bcryptjs.genSaltSync()
-            this.body.password = bcryptjs.hashSync(this.body.password, salt)
-            this.user = await loginModel.create(this.body)
-        }
-        catch(e){
-            console.log(e);
-        }
+        //gera hash da senha
+        const salt = bcryptjs.genSaltSync()
+        this.body.password = bcryptjs.hashSync(this.body.password, salt)
+
+        this.user = await loginModel.create(this.body)
+    
     }
 
     //verifica se o usuario já ta cadastrado na database
     async userExists() {
         try {
             //procura o user na database
-            const user = await loginModel.findOne({ email: this.body.email })
+            this.user = await loginModel.findOne({ email: this.body.email })
             //adiciona no array de errors caso ele exista para que ele não seja registrado
-            if(user) {
+            if(this.user) {
                 this.errors.push("Usuario já existe!!")
             }
+            return this.user
+   
 
         }
 
