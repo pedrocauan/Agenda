@@ -23,6 +23,9 @@ const path = require("path")
 const CSRF = require("csurf")
 const { middlewareGlobal, checkCSRF, middlewareCSRF} = require("./src/middlewares/middleware.js")
 
+//teste
+
+console.log("aaa")
 //Helmet
 // app.use(helmet())
 
