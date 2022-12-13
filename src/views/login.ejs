@@ -11,12 +11,12 @@
 
           <%- include("includes/messages") %>
 
-          <div class="row">
-            <div class="col-lg">
+          <div class="row ">
+            <div class="col-lg my-5">
               <!--CADASTRO-->
               <h4>Faça seu cadastro</h4>
               <p>Se você ainda não possui uma conta, preencha o formulário abaixo</p>
-              <form action="/login/register" method="POST">
+              <form class="form-cadastro" action="/login/register" method="POST">
                 <input type="hidden" name="_csrf" value= <%=csrfToken %> >
                 <!--EMAIL-->
                 <div class="form-group">
@@ -24,7 +24,7 @@
                   <input type="email" class="form-control" name="email">
                 </div>
 
-                <div class="form-group">
+                <div class="form-group my-3">
                   <label>Sua senha</label>
                   <input type="password" class="form-control" name="password">
                 </div>
@@ -32,11 +32,11 @@
               </form>
             </div>
             <!--LOGIN-->
-            <div class="col-lg">
+            <div class="col-lg my-5">
               <h4>Entrar no sistema</h4>
               <p>Se você já tem uma conta, faça login abaixo: </p>
 
-              <form action="/login/login" method="POST">
+              <form class="form-login" action="/login/login" method="POST">
                 <input type="hidden" name="_csrf" value=<%=csrfToken %> >
 
                 <!--EMAIL-->
@@ -45,11 +45,11 @@
                   <input type="email" class="form-control" name="email">
                 </div>
 
-                <div class="form-group">
+                <div class="form-group my-3">
                   <label>Sua senha</label>
                   <input type="password" class="form-control" name="password">
                 </div>
-                <button type="submit" class="btn btn-primary">Enviar</button>
+                <button type="submit" class="btn btn-primary">Entrar</button>
               </form>
 
             </div>

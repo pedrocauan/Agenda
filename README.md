@@ -6,3 +6,5 @@ Agenda criada com NodeJS em arquitetatura de projeto MVC
 1. [X] - Edição dos contatos (UPDATE).
 1. [X] - Listagem dos contatos (READ).
 1. [X] - Deletar contatos (DELETE).
+1. [ ] - Validar o FrontEnd
+    1. [X] - Validar formulario de cadastro e login
