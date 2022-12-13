@@ -1,41 +1,68 @@
+const { default: mongoose } = require("mongoose")
 const Contato = require("../models/ContatoModel.js")
 
-exports.index = (req,res) => {
-    res.render("contato.ejs")
+exports.index = (req, res) => {
+    res.render("contato.ejs", {
+        contato: {} //envia o contato pro front depois que ele for registrado
+    })
 }
 
-exports.register = async (req,res) => {
-    try{
+exports.register = async (req, res) => {
+    try {
 
         const contato = new Contato(req.body)
-    
         await contato.register()
-        if(contato.errors.length > 0) {
+
+        if (contato.errors.length > 0) {
             req.flash("errors", contato.errors)
             req.session.save(() => res.redirect(`/contato/index/${contato._id}`))
             return
         }
-    
+
         req.flash("success", "Contato registrado com sucesso")
         req.session.save(() => res.redirect(`/contato/index/${contato.contato._id}`))
-        return 
+        return
     }
-    catch(e) {
+    catch (e) {
         console.log(e)
         return res.render("404")
     }
 
 }
 
-exports.editIndex = async function(req, res) {
-    if(!req.params.id)
+exports.editIndex = async function (req, res) {
+    if (!req.params.id)
         return res.render("404")
-    console.log(typeof req.params.id)
+
     const contato = await Contato.buscaId(req.params.id)
     console.log(contato)
-    if(!contato)
+    if (!contato)
         return res.render("404")
-    
-    
-    res.render("contato.ejs", { contato })
+
+
+    res.render("contato", { contato })
+}
+
+exports.edit = async function (req, res) {
+    try {
+        this.errors = [] //limpa os erros para que a proxima validação de edição possa ser feita
+        if(!req.params.id) return res.render("404")
+
+        const contato = new Contato(req.body)
+        await contato.edit(req.params.id)
+
+        if (contato.errors.length > 0) {
+            req.flash("errors", contato.errors)
+            req.session.save(() => res.redirect(`back`))
+            return
+        }
+
+        req.flash("success", "Contato editado com sucesso")
+        req.session.save(() => res.redirect(`/contato/index/${contato.contato._id}`))
+        return
+    } catch (e) {
+        console.log(e)
+        res.render("404")
+    }
+
 }

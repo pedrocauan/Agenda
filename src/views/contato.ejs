@@ -11,33 +11,38 @@
           <!-- Mensagem de erro-->
           <%- include("includes/messages") %>
 
+          <% if(contato._id) { %>
+            <form action="/contato/edit/<%= contato._id %>" method="POST">
+            
+          <% } else { %>
             <form action="/contato/register" method="POST">
+          <% } %>
               <input type="hidden" name="_csrf" value=<%=csrfToken %> >
               <!--Nome-->
               <div class="form-group my-3 ">
                 <label>Nome</label>
-                <input value="" type="text" class="form-control" name="nome">
+                <input value="<%= contato.nome %>" type="text" class="form-control" name="nome">
               </div>
               <!--Sobrenome-->
               <div class="form-group my-3">
                 <label>sobrenome</label>
-                <input type="text" class="form-control" name="sobrenome">
+                <input value="<%= contato.sobrenome %>"text" class="form-control" name="sobrenome">
               </div>
               <!--Email-->
               <div class="form-group my-3">
                 <label>Email</label>
-                <input type="email" class="form-control" name="email">
+                <input value="<%= contato.email %>"email" class="form-control" name="email">
               </div>
               <!--Telefone-->
               <div class="form-group my-3">
                 <label>telefone</label>
-                <input type="tel" class="form-control" name="telefone">
+                <input value="<%= contato.telefone %>"tel" class="form-control" name="telefone">
               </div>
 
 
               <button type="submit" class="btn btn-primary">Salvar</button>
           </form>
-
+       
         </div>
         <!--cow-lg-8-->
 

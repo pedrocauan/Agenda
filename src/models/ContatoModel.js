@@ -33,7 +33,7 @@ Contato.prototype.valida = function() {
     this.cleanUp()
 
     // Ve se o email é válido
-    if(this.body.email && !validator.isEmail(this.body.email))
+    if(this.body.email && (!validator.isEmail(this.body.email)))
         this.errors.push("Email inválido !!")
     //Ve se o campo nome foi preenchido
     if(!this.body.nome)
@@ -63,6 +63,18 @@ Contato.prototype.cleanUp = function() {
         telefone: this.body.telefone,
     }
 
+}
+
+//edita os dados da database
+Contato.prototype.edit = async function(id) {
+     this.contato = null
+     if(typeof id !== "string") return
+
+     this.valida()
+
+     if(this.errors.length > 0) return
+
+    this.contato =  await ContatoModel.findByIdAndUpdate(id, this.body, { new: true })
 }
 
 //busca o contato na database
