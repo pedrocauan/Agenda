@@ -77,6 +77,8 @@ Contato.prototype.edit = async function(id) {
     this.contato =  await ContatoModel.findByIdAndUpdate(id, this.body, { new: true })
 }
 
+// === METODOS ESTÁTICOS (NÃO VAI PRO PROTOTYPE) ===
+
 //busca o contato na database
 Contato.buscaId = async function(id){
     try {
@@ -88,6 +90,22 @@ Contato.buscaId = async function(id){
     } catch(e) {
         console.log(e)
     }
+}
+
+//busca todos os contatos no banco e retorna pra home controller
+Contato.buscaContato = async function(){
+    //busca os contatos em ordem decrescente (-1)
+    const contatos = await ContatoModel.find().sort({ criadoEm: -1 })
+    return contatos
+}
+
+Contato.delete = async function(id){
+    if(typeof id !== "string") return
+
+    //findOneAndDelete deleta o registro da database
+    const contato = await ContatoModel.findOneAndDelete( {_id:  id })
+    console.log(contato)
+    return contato
 }
 
 module.exports  = Contato 

@@ -4,7 +4,10 @@ const app = express()
 const mongoose = require("mongoose")
 //link da database
 //conecta com a database
-mongoose.connect(process.env.CONNECTIONSTRING)
+mongoose.connect(process.env.CONNECTIONSTRING, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+})
     .then(() => {
         //emite um sinal pra database
         app.emit("pronto")
