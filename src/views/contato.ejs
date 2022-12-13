@@ -1,0 +1,49 @@
+<%- include("includes/head.ejs") %>
+  <%- include("includes/nav.ejs") %>
+
+    <div class="container">
+      <div class="row">
+        <div class="cow-lg-2"></div>
+
+        <div class="cow-lg-8 my-3">
+          <h1 class="text-center">Contato</h1>
+          <p class="text-center lead">Crie ou edite seu contato abaixo</p>
+          <!-- Mensagem de erro-->
+          <%- include("includes/messages") %>
+
+            <form action="/contato/register" method="POST">
+              <input type="hidden" name="_csrf" value=<%=csrfToken %> >
+              <!--Nome-->
+              <div class="form-group my-3 ">
+                <label>Nome</label>
+                <input value="" type="text" class="form-control" name="nome">
+              </div>
+              <!--Sobrenome-->
+              <div class="form-group my-3">
+                <label>sobrenome</label>
+                <input type="text" class="form-control" name="sobrenome">
+              </div>
+              <!--Email-->
+              <div class="form-group my-3">
+                <label>Email</label>
+                <input type="email" class="form-control" name="email">
+              </div>
+              <!--Telefone-->
+              <div class="form-group my-3">
+                <label>telefone</label>
+                <input type="tel" class="form-control" name="telefone">
+              </div>
+
+
+              <button type="submit" class="btn btn-primary">Salvar</button>
+          </form>
+
+        </div>
+        <!--cow-lg-8-->
+
+        <div class="cow-lg-2"></div>
+      </div>
+    </div>
+
+
+    <%- include("includes/footer.ejs") %>

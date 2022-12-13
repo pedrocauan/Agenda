@@ -55,6 +55,7 @@ class Login {
         this.body.password = bcryptjs.hashSync(this.body.password, salt)
 
         this.user = await loginModel.create(this.body)
+        return this.user
     
     }
 
@@ -68,8 +69,6 @@ class Login {
                 this.errors.push("Usuario já existe!!")
             }
             return this.user
-   
-
         }
 
         catch(e) {
@@ -87,8 +86,6 @@ class Login {
         // ve se senha esta  entre 3 e 50 caracteres
         if(this.body.password.length < 3  || this.body.password.length >= 50)
             this.errors.push("A senha precisa ter entre 3 e 50 caracteres")
-        
-        
 
     }
 
