@@ -1,4 +1,4 @@
-Agenda criada com NodeJS em arquitetatura de projeto MVC
+Agenda criada com NodeJS e mongoose em arquitetatura de projeto MVC
 
 ## deploy: http://35.199.106.30/
 
